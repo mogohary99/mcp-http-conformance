@@ -123,7 +123,7 @@ report.results.filter((r) => !r.pass); // [{ id, level, pass, detail, clause, tr
 ## Development
 
 ```sh
-npm test       # 11 tests: conformant stateful/stateless fixtures, a sloppy server, an auth-protected server,
+npm test       # 10 tests: conformant stateful/stateless fixtures, a sloppy server, an auth-protected server,
                # a deliberately public server, trace redaction, network-error wording
 ```
 
