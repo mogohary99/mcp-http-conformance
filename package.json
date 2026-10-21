@@ -1,0 +1,15 @@
+{
+  "name": "mcp-http-conformance",
+  "version": "0.1.0",
+  "description": "Conformance checker for MCP Streamable HTTP servers (spec 2025-11-25): a CLI that probes an endpoint and reports MUST/SHOULD violations with the spec clause for each.",
+  "license": "MIT",
+  "type": "module",
+  "bin": { "mcp-http-conformance": "./src/cli.js" },
+  "main": "./src/index.js",
+  "exports": { ".": "./src/index.js" },
+  "files": ["src", "README.md", "LICENSE"],
+  "scripts": { "test": "node --test test/", "lint": "node --check src/index.js && node --check src/cli.js" },
+  "keywords": ["mcp", "model-context-protocol", "streamable-http", "conformance", "testing", "alexa"],
+  "repository": { "type": "git", "url": "https://github.com/mogohary99/mcp-http-conformance" },
+  "engines": { "node": ">=20" }
+}
