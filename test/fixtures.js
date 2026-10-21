@@ -53,3 +53,24 @@ function end(res, status, obj, headers = {}) {
   res.writeHead(status, { "content-type": "application/json", ...headers });
   res.end(JSON.stringify(obj));
 }
+
+/** Protected server: 401 with (or without) a WWW-Authenticate header, until a bearer token is presented. */
+export function authServer({ wwwAuthenticate = 'Bearer resource_metadata="http://127.0.0.1/.well-known/oauth-protected-resource"' } = {}) {
+  const inner = conformantServer({ withSessions: false });
+  return createServer((req, res) => {
+    if (req.headers.authorization !== "Bearer secret") {
+      res.writeHead(401, { "content-type": "application/json", ...(wwwAuthenticate ? { "www-authenticate": wwwAuthenticate } : {}) });
+      return res.end(JSON.stringify({ error: "invalid_token" }));
+    }
+    inner.emit("request", req, res);
+  });
+}
+
+/** Public server: conformant except that it deliberately accepts any Origin (e.g. a CORS-open SaaS endpoint). */
+export function publicServer() {
+  const inner = conformantServer({ withSessions: false });
+  return createServer((req, res) => {
+    delete req.headers.origin;
+    inner.emit("request", req, res);
+  });
+}
